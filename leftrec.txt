@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<string.h>
+
+int main(){
+    int n,i=0,j=0,k=0,l=0;
+    char inpt[50]={0},part1[50]={0},part2[50]={0};
+    printf("Enter productions:A->Aa1|Aa2..|b1|b2.....\nA->");
+    fgets(inpt,50,stdin);
+    inpt[strlen(inpt)-1]='\0';
+    //printf("%s",inpt);
+    if(inpt[0]=='A'){
+      abc:
+      for(i++;inpt[i]!='|'&&inpt[i]!='\0';i++,j++){
+        part1[j]=inpt[i];
+        //printf("%s\n",part1);
+      }
+      if(inpt[i]=='|'){
+        part1[j]='A';
+        part1[++j]='\'';
+
+        if(inpt[++i]=='A'){
+          part1[++j]='|';
+          j++;
+          goto abc;
+        }
+        else{
+          part1[++j]='\0';
+          for(k=i;inpt[k]!='\0';k++,l++){
+              if(inpt[k]=='|'){
+                part2[l]='A';
+                part2[++l]='\'';
+                part2[++l]='|';
+                //printf("%s\n",part2 );
+            }
+              else{
+                part2[l]=inpt[k];
+                //printf("-%s\n",part2);
+              }
+          }
+          part2[l]='A';
+          part2[++l]='\'';
+          part2[++l]='\0';
+
+        }
+      }
+      else{
+        part1[++j]='A';
+        part1[++j]='\'';
+        part1[++j]='\0';
+      }
+    }
+
+    printf("A->%s\n",part2);
+    printf("A\'->%s|e\n",part1);
+    return 0;
+}

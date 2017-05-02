@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<string.h>
+int match(char  s1[],char s2[]){
+  int comm=0,i=3,j;
+  //printf("%s----%s\n",s1,s2);
+  for(i=3,j=0;s1[i]!='\0'&&s2[j]!='\0';i++,j++){
+    if(s1[i]==s2[j]){
+      //printf("imhere\n");
+      //printf("%c\t%c\n",s1[i],s2[j]);
+      comm++;
+    }
+
+  }
+  return comm;
+}
+int main(){
+    int n,i=0,temp,j=0,k=0,l=0,slash_no=0;
+    int slash[50]={0};
+    char inpt[50][50]={{0}},part1[50]={0},part2[50]={0};
+    char comm[50];
+    int commn=0;
+    printf("Enter number of productions:\n");
+    scanf("%d",&n);
+    printf("Enter %d  productions: in the form of A->abc\n",n);
+    for(i=0;i<n;i++){
+      scanf("%s",inpt[i]);
+      inpt[i][strlen(inpt[i])]='\0';
+    }
+    l=0;
+    for(j=3;inpt[0][j]!='\0';j++,l++){
+        comm[l]=inpt[0][j];
+    }
+    comm[l]='\0';
+    commn=999999999;
+    for(i=1;i<n;i++){
+      if(inpt[i][3]==comm[0]){
+        //printf("%s\n",comm);
+        temp=match(inpt[i],comm);
+        //printf("%d\t%d\n",temp,commn);
+        if(temp<commn){
+          commn=temp;
+        }
+      }
+    }
+    //printf("%s\n",comm);
+
+    comm[commn]='\0';
+    printf("A->%sA\'",comm);
+    for(i=0;i<n;i++){
+      if(inpt[i][3]==comm[0]){
+        continue;
+      }
+      else{
+        printf("|");
+        for(j=3;inpt[i][j]!='\0';j++){
+          printf("%c",inpt[i][j]);
+        }
+
+      }
+    }
+    printf("\n");
+    printf("A\'->");
+    for(i=0;i<n;i++){
+      if(inpt[i][3]==comm[0]){
+      for(j=3+commn;inpt[i][j]!='\0';j++){
+        printf("%c",inpt[i][j]);
+      }
+      printf("|");
+    }
+
+    }
+    printf("\b");
+    printf("    \n");
+    return 0;
+}
+
